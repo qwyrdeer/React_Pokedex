@@ -1,1 +1,22 @@
-/*Schrijf hier jouw eigen CSS!*/
+.pokemon-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    flex-basis: 100vw;
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.header-image-sizer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.header-image-sizer img {
+    width: 500px;
+}
