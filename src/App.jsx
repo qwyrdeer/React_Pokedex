@@ -3,6 +3,7 @@ import PKMN_Logo from '../src/assets/PKMNLogo.svg'
 import DexCard from "./components/dexcard/DexCard.jsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import Button from "./components/button/Button.jsx";
 
 function App() {
 
@@ -21,7 +22,6 @@ function App() {
                 const response = await axios.get(currentUrl);
                 setNextUrl(response.data.next)
                 setPreviousUrl(response.data.previous)
-                console.log(response.data.results);
                 setAllPokemon(response.data.results);
             } catch (e) {
                 console.error(e);
@@ -35,24 +35,26 @@ function App() {
 
   return (
       <>
+          <div className="page-box">
           <div className='header-image-sizer'>
               <img src={PKMN_Logo} alt="pokemon logo"/>
           </div>
           
           <div className='button-box'>
-          <button
-              disabled={!previousUrl}
-              onClick={() => setCurrentUrl(previousUrl)}
-          >
-              vorige
-          </button>
+              <Button
+                  disabled={!previousUrl}
+                  onClick={() => setCurrentUrl(previousUrl)}
+                  ButtonName="vorige"
+              />
 
-          <button
-              disabled={!nextUrl}
-              onClick={() => setCurrentUrl(nextUrl)}
-          >
-              volgende
-          </button>
+              <Button
+                  disabled={!nextUrl}
+                  onClick={() => setCurrentUrl(nextUrl)}
+                  ButtonName="volgende"
+              />
+
+              {error ? <p>Er is een fout opgetreden</p> : ''}
+
           </div>
 
         <div className='pokemon-box'>
@@ -60,6 +62,7 @@ function App() {
               <DexCard key={pokemon.name} url={pokemon.url} />
           ))}
         </div>
+          </div>
       </>
   )
 }

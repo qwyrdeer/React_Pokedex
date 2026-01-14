@@ -7,12 +7,16 @@ function DexCard({url}) {
     const [pokemon, setPokemon] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         async function fetchDetails() {
             const response = await axios.get(url);
             setPokemon(response.data);
         }
         fetchDetails();
-    }, [url]);
+        return function cleanup() {
+            controller.abort();
+    }}, [url]);
 
     if (!pokemon) return <article className="base-dex-card">Loading...</article>;
 

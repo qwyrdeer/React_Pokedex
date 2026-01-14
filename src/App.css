@@ -1,8 +1,17 @@
+.page-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: orange;
+}
+
 .pokemon-box {
     display: flex;
+    max-width: 1085px;
     flex-wrap: wrap;
     gap: 16px;
-    flex-basis: 100vw;
+    margin-bottom: 50px;
 }
 
 .button-box {
@@ -15,6 +24,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+    margin-top: 25px;
 }
 
 .header-image-sizer img {
