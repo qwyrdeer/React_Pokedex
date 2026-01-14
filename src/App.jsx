@@ -11,7 +11,7 @@ function App() {
     const [error, setError] = useState(false);
     const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon/')
     const [nextUrl, setNextUrl] = useState(null)
-    const [previousUrl, setPreviousUrl] = useState (null)
+    const [previousUrl, setPreviousUrl] = useState(null)
 
     useEffect(() => {
         const controller = new AbortController();
@@ -19,7 +19,7 @@ function App() {
         async function fetchPokemon() {
             try {
                 setError(false);
-                const response = await axios.get(currentUrl);
+                const response = await axios.get(currentUrl, {signal: controller.signal,});
                 setNextUrl(response.data.next)
                 setPreviousUrl(response.data.previous)
                 setAllPokemon(response.data.results);
@@ -28,43 +28,43 @@ function App() {
                 setError(true);
             }
         }
+
         fetchPokemon();
         return function cleanup() {
             controller.abort();
-    }}, [currentUrl]);
+        }
+    }, [currentUrl]);
 
-  return (
-      <>
-          <div className="page-box">
-          <div className='header-image-sizer'>
-              <img src={PKMN_Logo} alt="pokemon logo"/>
-          </div>
-          
-          <div className='button-box'>
-              <Button
-                  disabled={!previousUrl}
-                  onClick={() => setCurrentUrl(previousUrl)}
-                  ButtonName="vorige"
-              />
+    return (
+        <>
+            <div className="page-box">
+                <div className='header-image-sizer'>
+                    <img src={PKMN_Logo} alt="pokemon logo"/>
+                </div>
 
-              <Button
-                  disabled={!nextUrl}
-                  onClick={() => setCurrentUrl(nextUrl)}
-                  ButtonName="volgende"
-              />
+                <div className='button-box'>
+                    <Button
+                        disabled={!previousUrl}
+                        onClick={() => setCurrentUrl(previousUrl)}
+                        ButtonName="vorige"
+                    />
 
-              {error ? <p>Er is een fout opgetreden</p> : ''}
+                    <Button
+                        disabled={!nextUrl}
+                        onClick={() => setCurrentUrl(nextUrl)}
+                        ButtonName="volgende"
+                    />
+                </div>
+                    {error ? <p>Er is een fout opgetreden</p> : ''}
 
-          </div>
-
-        <div className='pokemon-box'>
-          {allPokemon?.map((pokemon) => (
-              <DexCard key={pokemon.name} url={pokemon.url} />
-          ))}
-        </div>
-          </div>
-      </>
-  )
+                <div className='pokemon-box'>
+                    {allPokemon?.map((pokemon) => (
+                        <DexCard key={pokemon.name} url={pokemon.url}/>
+                    ))}
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default App
