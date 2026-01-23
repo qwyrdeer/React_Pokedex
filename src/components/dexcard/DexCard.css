@@ -1,0 +1,18 @@
+.base-dex-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-basis: 200px;
+    min-height: 400px;
+    max-width: 250px;
+    background-color: white;
+    color: #1a1a1a;
+}
+
+li {
+    list-style: none;
+}
+
+.base-dex-card p {
+    margin: 2px;
+}
